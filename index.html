@@ -1,101 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ultron™ Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    /* Body & Background */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8" />
+    <title>Mythic_Killer — Professional Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    /* Container */
-    .developer-container {
-      background: rgba(20, 20, 20, 0.95);
-      border: 2px solid #7289da;
-      border-radius: 25px;
-      padding: 50px 40px;
-      max-width: 800px;
-      text-align: center;
-      box-shadow: 0 0 50px rgba(114, 137, 218, 0.6);
-    }
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    /* Glowing Header */
-    h1 {
-      font-size: 3rem;
-      color: #7289da;
-      text-shadow: 0 0 15px #7289da, 0 0 30px #7289da;
-      margin-bottom: 10px;
-    }
+    <!-- AOS (Scroll Animations) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-    h2 {
-      font-size: 2rem;
-      color: #ffffff;
-      text-shadow: 0 0 10px #7289da;
-      margin-bottom: 25px;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #020b24;
+            color: white;
+            overflow-x: hidden;
+        }
 
-    /* Info Lines */
-    p {
-      font-size: 1.2rem;
-      margin: 10px 0;
-      color: #ccc;
-      line-height: 1.6;
-      text-shadow: 0 0 5px #7289da;
-    }
+        /* ======================================================
+           LOADING SCREEN
+        ====================================================== */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000a1f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-    /* Links */
-    a {
-      color: #7289da;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+        #typingText {
+            font-size: 40px;
+            color: #53a7ff;
+            font-weight: 600;
+            border-right: 3px solid #53a7ff;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-    a:hover {
-      color: #fff;
-      text-shadow: 0 0 20px #7289da, 0 0 40px #7289da;
-    }
+        .loaderContainer {
+            width: 70%;
+            margin-top: 30px;
+        }
 
-    /* Techy Box Glow Effect */
-    .glow-box {
-      border: 1px solid #7289da;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px 0;
-      box-shadow: 0 0 20px #7289da, 0 0 40px #7289da inset;
-      background: rgba(0,0,0,0.5);
-    }
-  </style>
+        .loaderBar {
+            width: 0%;
+            height: 10px;
+            background: #2196f3;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+
+        .percentText {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #9bcaff;
+        }
+
+        /* ======================================================
+           NAVIGATION BAR
+        ====================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 20, 54, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #8cc1ff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        /* ======================================================
+           SECTIONS
+        ====================================================== */
+        section {
+            padding: 120px 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #8cc1ff;
+        }
+
+        h2 {
+            font-size: 35px;
+            color: #a7d0ff;
+        }
+
+        .subText {
+            margin-top: 10px;
+            color: #88a6d6;
+            font-size: 18px;
+        }
+
+        .bubble {
+            background: #071a39;
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 20px;
+            color: #53a7ff;
+            margin-bottom: 20px;
+        }
+
+        /* ======================================================
+           HOME SECTION
+        ====================================================== */
+        .bigTitle {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .discordBtn {
+            margin-top: 20px;
+            background: #0d47a1;
+            padding: 15px 40px;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .discordBtn:hover {
+            background: #2196f3;
+        }
+
+        /* ======================================================
+           ABOUT SECTION
+        ====================================================== */
+        .aboutContent {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .aboutText {
+            width: 50%;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .aboutBoxes {
+            width: 30%;
+        }
+
+        .aboutBox {
+            background: #071a39;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            color: #8cc1ff;
+            transition: 0.3s;
+        }
+
+        .aboutBox:hover {
+            background: #0d2f66;
+            transform: scale(1.05);
+        }
+
+        /* ======================================================
+           SKILLS SECTION
+        ====================================================== */
+        .skillsContainer {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .skillBox {
+            background: #071a39;
+            width: 40%;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+        }
+
+        .skillTitle {
+            color: #8cc1ff;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .skillItem {
+            margin-bottom: 20px;
+        }
+
+        .skillBar {
+            width: 100%;
+            background: #0d2f66;
+            height: 10px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .skillFill {
+            background: #2196f3;
+            height: 100%;
+            border-radius: 8px;
+            width: 0;
+            transition: 1.5s;
+        }
+
+        /* ======================================================
+           SERVICES SECTION
+        ====================================================== */
+        .serviceGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .serviceCard {
+            background: #071a39;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .serviceCard:hover {
+            background: #0f3363;
+            transform: scale(1.05);
+        }
+
+        /* ======================================================
+           PROJECTS SECTION
+        ====================================================== */
+        .projectCard {
+            background: #071a39;
+            display: inline-block;
+            padding: 30px;
+            width: 60%;
+            border-radius: 20px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .projectBtn {
+            display: inline-block;
+            background: #0d47a1;
+            padding: 12px 22px;
+            margin-top: 15px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .projectBtn:hover {
+            background: #2196f3;
+        }
+
+        /* ======================================================
+           CONTACT SECTION
+        ====================================================== */
+        .contactBtn {
+            background: black;
+            padding: 18px 40px;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .contactBtn:hover {
+            background: #2196f3;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="developer-container">
-    <h1>Ultron™</h1>
-    <h2>Developer Info</h2>
 
-    <div class="glow-box">
-      <p><strong>Developer:</strong> mr.mythic.killer</p>
-      <p><strong>Discord Username:</strong> mr.mythic.killer</p>
-      <p><strong>Discord Server:</strong> <a href="https://discord.gg/VmrntcMC5W" target="_blank">Join Server</a></p>
-      <p><strong>Title:</strong> Ultra Developer of Ultron™</p>
-      <p><strong>About:</strong> Passionate coder, tech enthusiast, and creator of Ultron™ – a bot designed to make Discord servers smarter, faster, and ultra-cool. Dedicated to continuous innovation and futuristic tech vibes.</p>
-      <p><strong>Skills:</strong> Discord.js, Node.js, Bot Development, Web Dashboards, API Integration, and ultra-techy UX design.</p>
+    <!-- ==========================================================
+         LOADING SCREEN
+    ========================================================== -->
+    <div id="loadingScreen">
+        <div id="typingText"></div>
+
+        <div class="loaderContainer">
+            <div class="loaderBar" id="loaderBar"></div>
+            <div class="percentText" id="percentText">0%</div>
+        </div>
     </div>
-    
-    <p>Stay connected for updates and support!</p>
-  </div>
+
+    <!-- ==========================================================
+         NAVIGATION BAR
+    ========================================================== -->
+    <nav>
+        <div style="font-size:25px;color:#53a7ff;">Mythic_Killer</div>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="https://discord.gg/y5Wua9nnrf" target="_blank"
+                style="padding:10px 20px;background:#0d47a1;border-radius:8px;color:white;">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- ==========================================================
+         HOME SECTION
+    ========================================================== -->
+    <section id="home">
+        <h1 class="bigTitle" data-aos="fade-up">Hi, I'm Mythic_Killer</h1>
+        <h2 data-aos="fade-up" data-aos-delay="200">Full Professional Developer & Minecraft Developer</h2>
+        <p class="subText" data-aos="fade-up" data-aos-delay="300">
+            I build modern websites and powerful Minecraft servers. Focused on performance, clean code, and scalable
+            systems.
+        </p>
+
+        <a href="https://discord.gg/y5Wua9nnrf" target="_blank" class="discordBtn" data-aos="zoom-in">Talk With Me</a>
+    </section>
+
+    <!-- ==========================================================
+         ABOUT SECTION
+    ========================================================== -->
+    <section id="about">
+        <div class="bubble">About Me</div>
+        <h1 data-aos="fade-up">Who is Mythic_Killer?</h1>
+
+        <div class="aboutContent">
+            <div class="aboutText" data-aos="fade-right">
+                I'm a Full-Time Web Developer and Minecraft Plugin & Server Developer with a passion for creating
+                exceptional digital experiences.
+                <br><br>
+                I focus on building high-performance websites and custom Minecraft solutions. Whether it's a sleek web
+                application or a complex server plugin, I deliver quality work that exceeds expectations.
+                <br><br>
+                My approach combines technical expertise with creative problem-solving, ensuring every project is not
+                just functional but truly impressive.
+            </div>
+
+            <div class="aboutBoxes" data-aos="fade-left">
+                <div class="aboutBox">Clean Code</div>
+                <div class="aboutBox">Performance</div>
+                <div class="aboutBox">Goal Oriented</div>
+                <div class="aboutBox">Gaming Expert</div>
+            </div>
+        </div>
+
+        <p class="subText" style="margin-top:40px;" data-aos="fade-up">↓ Scroll Down</p>
+    </section>
+
+    <!-- ==========================================================
+         SKILLS SECTION
+    ========================================================== -->
+    <section id="skills">
+        <div class="bubble">Skills</div>
+        <h1 data-aos="fade-up">What I Bring to the Table</h1>
+
+        <div class="skillsContainer">
+            <!-- LEFT BOX -->
+            <div class="skillBox" data-aos="fade-right">
+                <div class="skillTitle">Web Development and Coding</div>
+
+                <div class="skillItem">HTML / CSS 99%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="99"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">JavaScript 90%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="90"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">Node.js 85%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="85"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">Python 100%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="100"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">React 88%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="88"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT BOX -->
+            <div class="skillBox" data-aos="fade-left">
+                <div class="skillTitle">Minecraft Developer</div>
+
+                <div class="skillItem">Spigot / Paper 100%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="100"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">Custom Plugins 100%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="100"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">Server Optimization 100%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="100"></div>
+                    </div>
+                </div>
+
+                <div class="skillItem">Config & Setup 100%
+                    <div class="skillBar">
+                        <div class="skillFill" data-perc="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         SERVICES SECTION
+    ========================================================== -->
+    <section id="services">
+        <div class="bubble">Services</div>
+        <h1 data-aos="fade-up">What I Offer</h1>
+        <p class="subText" data-aos="fade-up">Professional development services for web and Minecraft projects. Quality
+            work, on time.</p>
+
+        <div class="serviceGrid">
+            <div class="serviceCard" data-aos="zoom-in">Full Stack Websites<br><br>Modern, responsive websites built
+                with React, Next.js, and Node.js.</div>
+            <div class="serviceCard" data-aos="zoom-in">Backend APIs<br><br>Scalable REST APIs and backend systems.</div>
+            <div class="serviceCard" data-aos="zoom-in">Custom MC Plugins<br><br>Unique Minecraft plugins.</div>
+            <div class="serviceCard" data-aos="zoom-in">Server Setup<br><br>Complete Minecraft server setup.</div>
+            <div class="serviceCard" data-aos="zoom-in">Database Integration<br><br>MySQL, MongoDB, Redis.</div>
+            <div class="serviceCard" data-aos="zoom-in">Code Optimization<br><br>Performance audits & optimization.</div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         PROJECTS SECTION
+    ========================================================== -->
+    <section id="projects">
+        <div class="bubble">Projects</div>
+        <h1 data-aos="fade-up">Featured Projects</h1>
+        <p class="subText">A selection of my best work in web and Minecraft development.</p>
+
+        <div class="projectCard" data-aos="fade-up">
+            <h2>Ultimate Multipurpose Bot</h2>
+            Features: Antinuke, Economy, Fun, Stats, Tickets, Auto-Reactor, Moderation & more.<br><br>
+            <a class="projectBtn"
+                href="https://discord.com/oauth2/authorize?client_id=1450801405572153446&permissions=8&scope=bot"
+                target="_blank">Invite Bot</a>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+         CONTACT SECTION
+    ========================================================== -->
+    <section id="contact">
+        <div class="bubble">Let's Talk</div>
+        <h1 data-aos="fade-up">Ready to Start Your Project?</h1>
+        <p class="subText" data-aos="fade-up">Whether it's a website, API, or Minecraft server – I'm here to help you
+            build something extraordinary.</p>
+
+        <a href="https://discord.gg/y5Wua9nnrf" target="_blank" class="contactBtn" data-aos="zoom-in">Let's Talk</a>
+    </section>
+
+    <!-- ==========================================================
+         SCRIPTS
+    ========================================================== -->
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        /* ============================================
+           Typing Animation for Loading Screen
+        ============================================ */
+        const text = "Mr. Mythic_Killer";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typingText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 120);
+            }
+        }
+        typeWriter();
+
+        /* ============================================
+           Loader Bar Animation
+        ============================================ */
+        let percent = 0;
+        let loadInt = setInterval(() => {
+            percent++;
+            document.getElementById("loaderBar").style.width = percent + "%";
+            document.getElementById("percentText").innerText = percent + "%";
+
+            if (percent >= 100) {
+                clearInterval(loadInt);
+                setTimeout(() => {
+                    document.getElementById("loadingScreen").style.display = "none";
+                }, 300);
+            }
+        }, 30);
+
+        /* ============================================
+           Animated Skill Bars
+        ============================================ */
+        const skillFills = document.querySelectorAll(".skillFill");
+        window.addEventListener("scroll", () => {
+            skillFills.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    bar.style.width = bar.dataset.perc + "%";
+                }
+            });
+        });
+    </script>
+
 </body>
+
 </html>
-
-
-
